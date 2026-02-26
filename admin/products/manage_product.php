@@ -751,6 +751,7 @@ echo '<style>' .
                     <?php } ?>
                 </div>
                 </div>
+                </div>
 
                 <div style="margin-top:20px;">
                     <button form="product-form" class="px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"> Salvar
@@ -789,8 +790,8 @@ echo '<style>' .
         var selectedTab = $(this).attr("href");
         $("#tabs a").removeClass("active-tab");
         $(this).addClass("active-tab");
-        $(".tabcontent").hide();
-        $(selectedTab).show();
+        $(".tabcontent").addClass("hidden").hide();
+        $(selectedTab).removeClass("hidden").show();
         localStorage.setItem('selectedTab_' + pageToken, pageToken + '_' + selectedTab);
         return false;
     });
@@ -866,9 +867,9 @@ echo '<style>' .
         if (storedTab) {
             var selectedTab = storedTab.substring(pageToken.length + 1);
             $("#tabs a").removeClass("active-tab");
-            $(selectedTab).addClass("active-tab");
-            $(".tabcontent").hide();
-            $(selectedTab).show();
+            $('#tabs a[href="' + selectedTab + '"]').addClass("active-tab");
+            $(".tabcontent").addClass("hidden").hide();
+            $(selectedTab).removeClass("hidden").show();
         }
         //End tabs
 
