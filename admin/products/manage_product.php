@@ -522,7 +522,6 @@ echo '<style>' .
                             ?>
                         </div>
                     </div>
-                </div>
                 <div id="tab7" class="tabcontent text-gray-700 dark:text-gray-400 hidden">
                     <label class="block mt-4 text-sm">
                         <span class="text-gray-700 dark:text-gray-400">
@@ -750,6 +749,7 @@ echo '<style>' .
                         <div id="rua-sentinel" style="height: 1px;"></div>
                     </div>
                     <?php } ?>
+                </div>
                 </div>
 
                 <div style="margin-top:20px;">
