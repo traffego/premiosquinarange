@@ -791,6 +791,7 @@ echo '<style>' .
     $(document).on("click", "#tabs a", function(e) {
         e.preventDefault();
         var selectedTab = $(this).attr("href");
+        console.log("[TABS] clicou em:", selectedTab);
         $("#tabs a").removeClass(activeClasses);
         $(this).addClass(activeClasses);
         $(".tabcontent").hide();
