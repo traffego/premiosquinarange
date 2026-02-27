@@ -785,45 +785,48 @@ echo '<style>' .
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 <script>
     var pageToken = 'manage_product';
-    var activeClasses = 'bg-white dark:bg-gray-700 active-tab';
 
     // ===== TABS - Vanilla JS =====
-    // OBS: o script roda no final do body, o DOM já está pronto — sem necessidade de DOMContentLoaded
-    function switchTab(selectedTab) {
+    // Exposta globalmente para debug e para garantir execução mesmo em contextos restritos
+    window.switchTab = function(selectedTab) {
         document.querySelectorAll('.tabcontent').forEach(function(el) {
-            el.style.display = 'none';
+            el.style.setProperty('display', 'none', 'important');
         });
         document.querySelectorAll('#tabs a').forEach(function(a) {
             a.classList.remove('bg-white', 'dark:bg-gray-700', 'active-tab');
         });
         var target = document.querySelector(selectedTab);
-        if (target) target.style.display = 'block';
+        if (target) target.style.setProperty('display', 'block', 'important');
         var activeLink = document.querySelector('#tabs a[href="' + selectedTab + '"]');
         if (activeLink) activeLink.classList.add('bg-white', 'dark:bg-gray-700', 'active-tab');
-        localStorage.setItem('selectedTab_' + pageToken, pageToken + '_' + selectedTab);
-    }
+        try { localStorage.setItem('selectedTab_' + pageToken, pageToken + '_' + selectedTab); } catch(e) {}
+    };
 
     // Inicializa: esconde todos exceto tab1
     document.querySelectorAll('.tabcontent').forEach(function(el) {
-        el.style.display = el.id === 'tab1' ? 'block' : 'none';
+        el.style.setProperty('display', el.id === 'tab1' ? 'block' : 'none', 'important');
     });
 
-    // Registra cliques nas abas
+    // Registra cliques nas abas — clone para remover qualquer handler duplicado
     document.querySelectorAll('#tabs a').forEach(function(link) {
-        link.addEventListener('click', function(e) {
+        var fresh = link.cloneNode(true);
+        link.parentNode.replaceChild(fresh, link);
+        fresh.addEventListener('click', function(e) {
             e.preventDefault();
-            switchTab(this.getAttribute('href'));
+            e.stopImmediatePropagation();
+            window.switchTab(this.getAttribute('href'));
         });
     });
 
     // Restaura aba salva no localStorage
-    (function() {
+    try {
         var storedTab = localStorage.getItem('selectedTab_' + pageToken);
         if (storedTab) {
             var savedTab = storedTab.substring(pageToken.length + 1);
-            switchTab(savedTab);
+            if (document.querySelector(savedTab)) window.switchTab(savedTab);
+            else localStorage.removeItem('selectedTab_' + pageToken);
         }
-    })();
+    } catch(e) {}
     // ===== FIM TABS =====
 
     $(document).on('input', '.discount_price', function() {
