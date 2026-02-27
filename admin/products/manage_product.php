@@ -751,7 +751,6 @@ echo '<style>' .
                     <?php } ?>
                 </div>
                 </div>
-                </div>
 
                 <div style="margin-top:20px;">
                     <button form="product-form" class="px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"> Salvar
@@ -786,15 +785,19 @@ echo '<style>' .
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 <script>
     var pageToken = 'manage_product';
-    $("#tabs a").click(function() {
+    var activeClasses = 'bg-white dark:bg-gray-700 active-tab';
+
+    // Tabs functionality
+    $(document).on("click", "#tabs a", function(e) {
+        e.preventDefault();
         var selectedTab = $(this).attr("href");
-        $("#tabs a").removeClass("active-tab");
-        $(this).addClass("active-tab");
+        $("#tabs a").removeClass(activeClasses);
+        $(this).addClass(activeClasses);
         $(".tabcontent").addClass("hidden").hide();
         $(selectedTab).removeClass("hidden").show();
         localStorage.setItem('selectedTab_' + pageToken, pageToken + '_' + selectedTab);
-        return false;
     });
+
     $(document).on('input', '.discount_price', function() {
         $(this).mask("#.##0,00", {
             reverse: true
@@ -866,8 +869,8 @@ echo '<style>' .
         var storedTab = localStorage.getItem('selectedTab_' + pageToken);
         if (storedTab) {
             var selectedTab = storedTab.substring(pageToken.length + 1);
-            $("#tabs a").removeClass("active-tab");
-            $('#tabs a[href="' + selectedTab + '"]').addClass("active-tab");
+            $("#tabs a").removeClass(activeClasses);
+            $('#tabs a[href="' + selectedTab + '"]').addClass(activeClasses);
             $(".tabcontent").addClass("hidden").hide();
             $(selectedTab).removeClass("hidden").show();
         }
