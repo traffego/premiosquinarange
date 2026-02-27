@@ -275,7 +275,7 @@ echo '<style>' .
                             </label>
                         </div>
                     </div>
-                    <div id="tab2" class="tabcontent text-gray-700 dark:text-gray-400 hidden">
+                    <div id="tab2" class="tabcontent text-gray-700 dark:text-gray-400" style="display:none">
                         <div class="imagens-campanha">
                             <!-- Imagem principal -->
                             <label class="pure-material-textfield-outlined"><label class="block mt-4 text-sm"><span class="text-gray-700 dark:text-gray-400">Imagem principal</span>
@@ -339,7 +339,7 @@ echo '<style>' .
                             <!-- end galeria -->
                         </div>
                     </div>
-                    <div id="tab3" class="tabcontent text-gray-700 dark:text-gray-400 hidden">
+                    <div id="tab3" class="tabcontent text-gray-700 dark:text-gray-400" style="display:none">
                         <!-- Promoção Primeira Compra -->
                         <label class="block mt-4 text-sm"><span class="text-gray-700 dark:text-gray-400">Promoção 1ª Compra (Rifa Grátis)?</span>
                         </label>
@@ -428,7 +428,7 @@ echo '<style>' .
 
                         </div>
                     </div>
-                    <div id="tab4" class="tabcontent text-gray-700 dark:text-gray-400 hidden">
+                    <div id="tab4" class="tabcontent text-gray-700 dark:text-gray-400" style="display:none">
                         <label class="block mt-4 text-sm"><span class="text-gray-700 dark:text-gray-400">Habilitar ranking?</span>
                         </label>
                         <div class="can-toggle"><input type="checkbox" name="enable_ranking" id="enable_ranking" <?= isset($enable_ranking) && $enable_ranking == 1 ? 'checked' : '' ?>>
@@ -451,7 +451,7 @@ echo '<style>' .
                             <label class="block mt-4 text-sm"><span class="text-gray-700 dark:text-gray-400">Mensagem da promoção do ranking *</span><input name="ranking_message" id="ranking_message" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Quem comprar mais cotas, 1º lugar ganha: R$ " value="<?= isset($ranking_message) ? $ranking_message : 'Quem comprar mais cotas, 1º lugar ganha: R$' ?>" /></label>
                         </div>
                     </div>
-                    <div id="tab5" class="tabcontent text-gray-700 dark:text-gray-400 hidden"><label class="block mt-4 text-sm"><span class="text-gray-700 dark:text-gray-400">Exibir barra de progresso?</span>
+                    <div id="tab5" class="tabcontent text-gray-700 dark:text-gray-400" style="display:none"><label class="block mt-4 text-sm"><span class="text-gray-700 dark:text-gray-400">Exibir barra de progresso?</span>
                         </label>
                         <div class="can-toggle"><input type="checkbox" name="enable_progress_bar" id="enable_progress_bar" <?= isset($enable_progress_bar) && $enable_progress_bar == 1 ? 'checked' : '' ?>>
                             <label for="enable_progress_bar">
@@ -459,7 +459,7 @@ echo '<style>' .
                             </label>
                         </div>
                     </div>
-                    <div id="tab6" class="tabcontent text-gray-700 dark:text-gray-400 hidden">
+                    <div id="tab6" class="tabcontent text-gray-700 dark:text-gray-400" style="display:none">
                         <label class="add_field_ block mt-4 text-sm" style="display:inline-block;"><span class="px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Adicionar ganhador</span></label>
                         <!-- Descontos -->
                         <div id="ganhadores" class="ganhadores">
@@ -522,7 +522,7 @@ echo '<style>' .
                             ?>
                         </div>
                     </div>
-                <div id="tab7" class="tabcontent text-gray-700 dark:text-gray-400 hidden">
+                <div id="tab7" class="tabcontent text-gray-700 dark:text-gray-400" style="display:none">
                     <label class="block mt-4 text-sm">
                         <span class="text-gray-700 dark:text-gray-400">
                             Cotas Premiadas
@@ -675,7 +675,7 @@ echo '<style>' .
                     </div>
                 </div>
 
-                <div id="tab8" class="tabcontent text-gray-700 dark:text-gray-400 hidden">
+                <div id="tab8" class="tabcontent text-gray-700 dark:text-gray-400" style="display:none">
                     <?php
                     $cotas_rua_disabled = '';
                     $cotas_rua_aviso = '';
@@ -793,8 +793,8 @@ echo '<style>' .
         var selectedTab = $(this).attr("href");
         $("#tabs a").removeClass(activeClasses);
         $(this).addClass(activeClasses);
-        $(".tabcontent").addClass("hidden").hide();
-        $(selectedTab).removeClass("hidden").show();
+        $(".tabcontent").hide();
+        $(selectedTab).show();
         localStorage.setItem('selectedTab_' + pageToken, pageToken + '_' + selectedTab);
     });
 
@@ -871,8 +871,8 @@ echo '<style>' .
             var selectedTab = storedTab.substring(pageToken.length + 1);
             $("#tabs a").removeClass(activeClasses);
             $('#tabs a[href="' + selectedTab + '"]').addClass(activeClasses);
-            $(".tabcontent").addClass("hidden").hide();
-            $(selectedTab).removeClass("hidden").show();
+            $(".tabcontent").hide();
+            $(selectedTab).show();
         }
         //End tabs
 
