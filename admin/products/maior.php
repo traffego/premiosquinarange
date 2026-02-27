@@ -1,6 +1,6 @@
 <?php
 
-// Get the parameters from the request
+// Get the parameters from the request.
 $horainicial = isset($_GET['horainicial']) ? $_GET['horainicial'] : '';
 $horafinal = isset($_GET['horafinal']) ? $_GET['horafinal'] : '';
 $product_id = isset($_GET['product_id']) ? $_GET['product_id'] : '';
