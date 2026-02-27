@@ -787,45 +787,43 @@ echo '<style>' .
     var pageToken = 'manage_product';
     var activeClasses = 'bg-white dark:bg-gray-700 active-tab';
 
-    // ===== TABS - Vanilla JS (sem dependência de jQuery) =====
+    // ===== TABS - Vanilla JS =====
+    // OBS: o script roda no final do body, o DOM já está pronto — sem necessidade de DOMContentLoaded
     function switchTab(selectedTab) {
-        // Esconde todos os conteúdos
         document.querySelectorAll('.tabcontent').forEach(function(el) {
             el.style.display = 'none';
         });
-        // Remove active de todos os links
         document.querySelectorAll('#tabs a').forEach(function(a) {
             a.classList.remove('bg-white', 'dark:bg-gray-700', 'active-tab');
         });
-        // Mostra o tab selecionado
         var target = document.querySelector(selectedTab);
         if (target) target.style.display = 'block';
-        // Marca o link ativo
         var activeLink = document.querySelector('#tabs a[href="' + selectedTab + '"]');
         if (activeLink) activeLink.classList.add('bg-white', 'dark:bg-gray-700', 'active-tab');
-        // Salva no localStorage
         localStorage.setItem('selectedTab_' + pageToken, pageToken + '_' + selectedTab);
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Inicializa: esconde todos exceto tab1
-        document.querySelectorAll('.tabcontent').forEach(function(el) {
-            el.style.display = el.id === 'tab1' ? 'block' : 'none';
+    // Inicializa: esconde todos exceto tab1
+    document.querySelectorAll('.tabcontent').forEach(function(el) {
+        el.style.display = el.id === 'tab1' ? 'block' : 'none';
+    });
+
+    // Registra cliques nas abas
+    document.querySelectorAll('#tabs a').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            switchTab(this.getAttribute('href'));
         });
-        // Registra cliques nas abas
-        document.querySelectorAll('#tabs a').forEach(function(link) {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                switchTab(this.getAttribute('href'));
-            });
-        });
-        // Restaura aba salva no localStorage
+    });
+
+    // Restaura aba salva no localStorage
+    (function() {
         var storedTab = localStorage.getItem('selectedTab_' + pageToken);
         if (storedTab) {
             var savedTab = storedTab.substring(pageToken.length + 1);
             switchTab(savedTab);
         }
-    });
+    })();
     // ===== FIM TABS =====
 
     $(document).on('input', '.discount_price', function() {
